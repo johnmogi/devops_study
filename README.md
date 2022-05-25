@@ -6,3 +6,5 @@ rebase
 git rm --cached README.md
 git rm -f
 git mv file
+
+git reset --hard HEAD (\*\*)
