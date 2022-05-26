@@ -8,3 +8,10 @@ git rm -f
 git mv file
 
 git reset --hard HEAD (\*\*)
+
+git revert HEAD~1
+instead of git log - git checkout for a commit
+
+https://git-scm.com/docs/git-cherry-pick
+
+git reset --hard HEAD
