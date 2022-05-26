@@ -1,8 +1,12 @@
-1. write your own in a few words on each topic.
+<!-- 1. write your own in a few words on each topic.
 2. research using google each topic.
-3. revisit - are there a lot of changes?
+3. revisit - are there a lot of changes? -->
 
 bonus - FF - fast forward? git merge - signal merge on history
+When you try to merge one commit with a commit that can be reached by following the first commit’s history, Git simplifies things by moving the pointer forward because there is no divergent work to merge together – this is called a “fast-forward.”
+
+If Master has not diverged, instead of creating a new commit, git will just point master to the latest commit of the feature branch. This is a “fast forward.”
+
 https://youtu.be/LqBC9hSLayc?t=3608
 
 DELTA - meaning the actual changes on a blob (:
