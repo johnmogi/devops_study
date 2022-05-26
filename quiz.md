@@ -36,13 +36,20 @@ git commit -m -a ?
 # Working with Remotes (fetch, pull, push)
 
 [fetch] retrieve the current repo from origin into the local repo- updates the status of other users as well but does not pull and reflects changes upon working area
-[pull] retrieves current commit, origin state from remote into local and the workarea
+[pull] retrieves current commit, origin state from remote into local and the workarea (fetch + merge)
 [push] aftter adding files, commiting changes and not founding conflicts - adds the files into the remote main and advances HEAD
 
 # Merge and Rebase (merge, rebase)
 
 [merge] squash, cherry pick or simply merge all selected branches into the main HEAD as a new commit, solves branches but need to resolve conflicts if there are.
 [rebase] - not sure, maybe shifts main into a branch? or moves HEAD from a detached state into a previous commit without opening a new branch?
+NOPE
+rebase merges branch into main but insted of manifesting changes it manipulates the history into a straight line,
+for instance, a new branch had 2 commits, by rebasing it shows the 2 new branch commits as a continuation of the main last commit, it actually does so by creating 2 new additional commits for this manipulation...
+
+https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase
+Rebasing is the process of moving or combining a sequence of commits to a new base commit. Rebasing is most useful
+and easily visualized in the context of a feature branching workflow.
 
 # gitignore and gitattributes files
 
@@ -51,11 +58,27 @@ git commit -m -a ?
 
 # Code Review (Pull Request)
 
+merging from a user request to apply changes into main from a different branch
+using the ui it's a consideration process, once done the merge is applied.
+
 ## Scripting Languages
 
-What are scripting languages
-What are scripts used for
-Variables
-Functions
+# What are scripting languages
+
+programming languages for automation and configuration- mainly used for setup purposes
+
+# What are scripts used for
+
+"educates" machines for connection as in networks, updates to installations, installations of software, programs, and configuration management tools.
+
+# Variables
+
+a memory storage unit internally withing a programing or scripting langauge, it stores a memrot of a value- it could be a string, an integar, and other values such as a boolean, a date etc.
+a variable can change it's stored data, managing variables within function scopes and checking for value is part of a programmers main tools.
+
+# Functions
+
+methods to be applied within the program
+
 Parameters
 Conditions
