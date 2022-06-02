@@ -65,3 +65,209 @@ Networking in a Nutshell [5]
 
 Now, today the network is a collection of devices and end systems, but those end systems include almost anything, not only computers, servers, but also telephones and cell phones and industry-automation machines that will now be involved in the exchange of information. That means we are exchanging not only data or traditional data in the form of files and other components, but also voice and video and multimedia collaboration.
 }}
+
+sela lecture:
+computers comuniacate using ip's
+ip is composed of 4 digits wit 3 dots.
+each block of 3 numbers represents a class (a,b,c) - with allowed ip range.
+each class represents 0-255 (256 numbers)
+a lot of addresses are limited or reserved - that's why ipv4 is slowly running out of available ips.
+there are additional private routes reserved for networks for instance routers.
+
+12.0.0.1/8
+mask
+127.255.255.255
+
+result 3 mistakes:
+
+Summary
+
+avatar
+jonathan Moguillansky
+Assignment
+
+Accuracy
+85%
+Score
+16370
+Performance Stats
+17
+Correct
+3
+Incorrect
+12 s
+Time/ques
+Review Questions
+Click on the questions to see answers
+
+3.  Which of the following is not an operating system?
+    Windows 10
+
+Linux -V
+
+GNU/Linux
+
+Solaris -X
+
+10. An application was deployed and is available at port 8081, you try to connect but get connection refused, what could be the reason?
+    The Firewall doesn't allow traffic into the port -V
+
+Port 8081 is not a valid port
+
+The application port-tool is not installed
+
+All options are correct - X
+
+20. What project is Linux based on?
+    DOS
+
+Unix - X
+
+GNU -V
+
+Minix
+
+1.  How do you connect to a terminal in a remote Linux server?
+    Using SSH
+
+Using RDP
+
+Using HTTP
+
+Using HTTPS
+
+2.  Which of the following best defines what a network is
+    Computers with internet access
+
+Computers linked to provide a storage service
+
+A group of computers connected to a printer
+
+Group of computers connected for the exchange of data
+
+4.  Which of the following is not a text editor?
+    Nano
+
+Vim
+
+Notepad
+
+Screen
+
+5.  What is the name of the systems that know how to store various types of packages?
+    Universal Repository Manager
+
+Hybrid Repository Manager
+
+Cloud Package Manager
+
+ArtifactsHub
+
+6.  What is the process used to convert the code into binary files?
+    Package Management
+
+Compilation
+
+Debugging
+
+Interpretation
+
+7.  Which of these options is not a Linux distro?
+    Ubuntu
+
+Fedora
+
+Linux Server 2019
+
+CentOs
+
+8.  What protocol is used when users need to transmit sensitive data, such as logging into a bank account, email service, or health insurance provider
+    FTP
+
+HTTP
+
+HTTPS
+
+HTML
+
+9.  What is apt?
+    A Monitoring Tool
+
+A Package management tool for Windows
+
+A Network Protocol
+
+A Package management tool for Linux
+
+11. What is the root user?
+    There is no such thing
+
+User that by default has access to all commands and files
+
+User that by default has access to certain commands and files
+
+User that by default has access to no commands and files
+
+12. Nuget is the package manager for:
+    Java
+
+Python
+
+C#
+
+Nodejs
+
+13. Every machine on a network needs a unique IP address?
+    True
+
+False
+
+14. How do you move a file or directory in Linux?
+    move /path/to/file /new/path/to/file
+
+mv /path/to/file /new/path/to/file
+
+move-file /path/to/file /new/path/to/file
+
+Move-Item /path/to/file /new/path/to/file
+
+15. How do you access a remote Windows server Desktop?
+    Using SSH
+
+Using RDP
+
+Using HTTP
+
+Using HTTPS
+
+16. Binary files are human-readable?
+    True
+
+False
+
+17. What is the native Windows web server?
+    IIS
+
+Ngnix
+
+Apache
+
+Jetty
+
+18. What's the name of the Linux pet?
+    Laika
+
+Tux
+
+Moby
+
+Gopher
+
+19. A load balancer...
+    Create a secure tunnel through an insecure network
+
+Distribute the load among multiple endpoints
+
+Expose the applications to the internet
+
+All the answers are correct
