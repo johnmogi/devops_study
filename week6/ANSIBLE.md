@@ -1,62 +1,75 @@
 ## admin
-
+20.228.224.102 (ip)
+ssh -i /home/john/.sshid_rsa.pub adminuser@20.115.4.232
 
 sudo su
 apt update -y ; apt install ansible -y ; apt upgrade -y
 
 <!-- ssh -i id_rsa.pub adminuser@sysadmin
 ssh -i id_rsa.pub adminuser@168.62.169.29 -->
-# no root login!
+# exit root login!
 
 cd ~/.ssh
-ssh-keygen -t ed25519 -C "ansible"
+ssh-keygen -t ed25519 -C "tower"
 
 # double enter, etc. look into it.
 
 10.0.20.4
-10.0.20.5
-10.0.20.9
+10.0.20.6
+<!-- 10.0.20.9 -->
 
-ssh-copy-id -i adminuser@10.0.20.5
+ssh-copy-id -i adminuser@10.0.20.6
 ssh-copy-id -i adminuser@10.0.20.4
-ssh-copy-id -i adminuser@10.0.20.9
+<!-- ssh-copy-id -i adminuser@10.0.20.9 -->
 
  ssh-copy-id -i ~/.ssh/id_ed25519.pub 
+ # do this twice and rename new  file into ansible
+
+ssh-copy-id -i ~/.ssh/ansible.pub 10.0.20.4
+
+
+
+
+ansible all --key-file ~/.ssh/id_ed25519.pub -i inventory -m ping
+ansible all --key-file ~/.ssh/ansible -i inventory -m ping
 
 ## slaves
 
 ssh 10.0.20.4
-ssh 10.0.20.5
-ssh 10.0.20.9
+ssh 10.0.20.6
 
-P@$$w0rd1234!
-
-sudo su
-apt update -y
-apt upgrade -y
-
-<!-- python3 is allready installed on ubuntu 20 -->
-
-
-# press i
-
-# PubkeyAuthentication no -> PubkeyAuthentication yes
 sudo su
 vim /etc/ssh/sshd_config
+# PubkeyAuthentication no -> PubkeyAuthentication yes
 service ssh restart
 systemctl reload sshd
 systemctl status sshd
-exit; exit 
+exit; 
 
-MASTER
+## MASTER
 
 10.0.20.4
-10.0.20.5
-10.0.20.9
+10.0.20.6
 
 sudo vim /etc/ansible/hosts
 
------------ GUIDE
+sudo echo '''
+[clients]
+10.0.20.4
+10.0.20.6''' > inventory
+
+ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+# overide /etc/ansible/ansible.config
+sudo echo '''
+[defaults]
+inventory = inventory
+private_key_file = ~/.ssh/ansible''' > ansible.cfg
+ansible all -m ping
+ansible all --list-hosts
+
+ansible all -m gather_facts --limit 10.0.20.4
+
+----------- more GUIDE
 https://www.youtube.com/watch?v=-Q4T9wLsvOQ
 ip a under inet - yoour ip
 
@@ -76,13 +89,3 @@ nano ~/.bashrc │
 source ~/.bashrc
 alias up="git add -A && git commit -m 'up' && git push"
 
-sudo nano inventory
-[clients]
-10.0.20.4
-10.0.20.5
-
-ssh-keygen -t ed25519 -C "tower"
-
-ssh-copy-id -i ~/.ssh/tower.pub 10.0.20.4
-ansible all --key-file ~/.ssh/id_ed25519.pub -i inventory -m ping
-ansible all --key-file ~/.ssh/tower -i inventory -m ping
