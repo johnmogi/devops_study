@@ -1,4 +1,5 @@
 ## admin
+
 20.228.224.102 (ip)
 ssh -i /home/john/.sshid_rsa.pub adminuser@20.115.4.232
 
@@ -7,6 +8,7 @@ apt update -y ; apt install ansible -y ; apt upgrade -y
 
 <!-- ssh -i id_rsa.pub adminuser@sysadmin
 ssh -i id_rsa.pub adminuser@168.62.169.29 -->
+
 # exit root login!
 
 cd ~/.ssh
@@ -16,19 +18,19 @@ ssh-keygen -t ed25519 -C "tower"
 
 10.0.20.4
 10.0.20.6
+
 <!-- 10.0.20.9 -->
 
 ssh-copy-id -i adminuser@10.0.20.6
 ssh-copy-id -i adminuser@10.0.20.4
+
 <!-- ssh-copy-id -i adminuser@10.0.20.9 -->
 
- ssh-copy-id -i ~/.ssh/id_ed25519.pub 
- # do this twice and rename new  file into ansible
+ssh-copy-id -i ~/.ssh/id_ed25519.pub
+
+# do this twice and rename new file into ansible
 
 ssh-copy-id -i ~/.ssh/ansible.pub 10.0.20.4
-
-
-
 
 ansible all --key-file ~/.ssh/id_ed25519.pub -i inventory -m ping
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
@@ -40,11 +42,13 @@ ssh 10.0.20.6
 
 sudo su
 vim /etc/ssh/sshd_config
+
 # PubkeyAuthentication no -> PubkeyAuthentication yes
+
 service ssh restart
 systemctl reload sshd
 systemctl status sshd
-exit; 
+exit;
 
 ## MASTER
 
@@ -59,19 +63,32 @@ sudo echo '''
 10.0.20.6''' > inventory
 
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+
 # overide /etc/ansible/ansible.config
+
 sudo echo '''
 [defaults]
 inventory = inventory
 private_key_file = ~/.ssh/ansible''' > ansible.cfg
-ansible all -m ping
+<!-- ansible all -m ping
 ansible all --list-hosts
 
 ansible all -m gather_facts --limit 10.0.20.4
+stuck... but go on
+ansible all -m apt -a update_cache=true --become --ask-become-pass
+ansible all -m apt -a name=vim-nox --become --ask-become-pass
+ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
+## upgrade all updates on all servers:
+ansible all -m apt -a upgrade=dist --become --ask-become-pass
+ -->
+
+ansible-playbook -i  
+
+https://youtu.be/FPU9_KDTa8A?t=276
 
 ----------- more GUIDE
 https://www.youtube.com/watch?v=-Q4T9wLsvOQ
-ip a under inet - yoour ip
+ip a under inet - your ip
 
 eval $(ssh-agent)
 
@@ -89,3 +106,12 @@ nano ~/.bashrc │
 source ~/.bashrc
 alias up="git add -A && git commit -m 'up' && git push"
 
+
+      - name: Ansible shell module multiple commands
+        shell: 'curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -'
+      - name: Install reqired packages
+        apt: name={{ item }} state=present
+        with_item
+          - nodejs
+
+ansible-playbook -i /home/adminuser/inventory  /home/adminuser/playbook.yml

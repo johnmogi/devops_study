@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Update 'apt' repositories
+      package:
+        update_cache: yes
+
+    - name: Install node14
+      shell: |
+        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt-get install -y nodejs
+- hosts: all
+  tasks:
+    - name: Fetch weight app repository
+      git:
+        repo: https://github.com/johnmogi/bootcamp-app.git
+        dest: ~/weightapp
+        clone: yes
+        update: no
+
+    - name: Build node modules dependencies
+      shell: |
+        cd ~/weightapp && npm install
+
+    - name: manualy transfer enviroment variables
+      copy:
+        src: .env
+        dest: ~/weightapp/
+
+    - name: Run demo
+      shell: |
+        cd ~/weightapp && npm run dev
+
+    - name: Restart node
+      cron:
+        name: "run node run..."
+        special_time: reboot
+        job: "cd ~/weightapp && node ~/weightapp/src/index.js"
