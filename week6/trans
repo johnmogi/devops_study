@@ -1,0 +1,31 @@
+  38  sudo ssh-keygen -t ed25519 -C "ansible"
+   39  ssh-copy-id -i ~/.ssh/id_ed25519.pub 10.0.20.4
+   40  ssh-copy-id -i ~/.ssh/id_ed25519.pub 10.0.20.5
+  #  41  ssh-copy-id -i ~/.ssh/id_ed25519.pub 10.0.20.9
+   42  ssh 10.0.20.4
+   43  cd -
+   44  ll
+   45  ansible all --key-file ~/.ssh/id_ed25519.pub -i inventory -m ping
+   46  ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+   47  ssh 10.0.20.9
+   48  ll
+   49  sudo nano  playbook.yml
+   50  ll
+   51  ansible-playbook playbook.yml --ask-pass
+   52  sudo nano playbook.yml
+   53  ansible-playbook playbook.yml --ask-pass
+   54  ansible -m ping all
+   55  sudo vim /etc/ansible/hosts
+   56  sudo echo "" > playbook.yml 
+   57  sudo vim /etc/ansible/hosts
+   58  sudo nano playbook.yml
+   59  sudo vim playbook.yml
+   60  sudo nano playbook.yml 
+   61  ansible-playbook playbook.yml --syntax-check
+   62  $ sudo vim /etc/ansible/hosts
+   63  sudo vim /etc/ansible/hosts
+   64  curl http://(nodeip):80
+   65  curl http://10.0.20.9:80
+   66  curl http://10.0.20.9:8080
+   67  ansible-playbook playbook.yml --syntax-check
+   68  history
