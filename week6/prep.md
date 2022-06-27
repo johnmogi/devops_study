@@ -21,7 +21,7 @@ apart from that we traditionally have Chef, Puppet, i beleive that vagrant as we
 
 # Architecture
 { Ansible is a radically simple IT automation engine that automates cloud provisioning, configuration management, application deployment, intra-service orchestration, and many other IT needs.}
-
+playbook play compose order
 # Inventory
 { The Ansible inventory file defines the hosts and groups of hosts upon which commands, modules, and tasks in a playbook operate. The file can be in one of many formats depending on your Ansible environment and plugins. Common formats include INI and YAML. }
 

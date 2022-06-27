@@ -1,0 +1,77 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - psecret.yml
+  tasks:
+  - name: update apt repositories
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+  - name: node14 setup
+    shell: 'curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt-get install -y nodejs'
+    args:
+      warn: false
+          
+  - name: clone Weight tracker from git
+    git:
+      repo: https://github.com/johnmogi/bootcamp-app.git
+      dest: /home/adminuser/weightapp
+      clone: yes
+      update: no
+
+  - name: install npm package (all at once)
+    shell: |
+      cd /home/adminuser/weightapp; npm install ;
+
+  - name: Create env file and populate it with vars
+    copy:
+        dest: "/home/adminuser/weightapp/.env"
+        content: |
+          PORT=8080
+          HOST='0.0.0.0'
+          HOST_URL=http://{{ PIP }}:8080
+          COOKIE_ENCRYPT_PWD={{ COOKIE }}
+          NODE_ENV={{ ENV }}
+          PGHOST={{ PHOST }}
+          PGUSERNAME={{ PUSER }}
+          PGDATABASE={{ PDB }}
+          PGPASSWORD={{ PPASS }}
+          PGPORT={{ PPORT }}
+          OKTA_ORG_URL=https://{{ PKTA }}
+          OKTA_CLIENT_ID={{ OCLIENT }}
+          OKTA_CLIENT_SECRET={{ OSECRET }}
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Delete old pm2 processes if exists
+    shell: pm2 delete index
+    ignore_errors: yes
+
+  - name: Install pm2
+    npm:
+      name: pm2
+      global: yes
+
+- hosts: all
+  become: true
+  tasks:
+    - name: spawn app
+      shell: pm2 start src/index.js
+      args:
+      chdir:  /home/adminuser/weightapp/
+
+    - name: saving the state of pm2
+      shell: pm2 save
+      args:
+      chdir:  /home/adminuser/weightapp/
+
+    - name: export pm2 path
+      shell: pm2 startup && sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u adminuser --hp /home/adminuser
+      args:
+      chdir:  /home/adminuser/weightapp/
+
+    - name: restart
+      become: yes
+      command: reboot

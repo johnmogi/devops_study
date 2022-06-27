@@ -1,9 +1,9 @@
 
 10.0.0.0/16 - network
-10.0.20.0/26 - sysadmin
+20.124.199.39 - sysadmin
 10.0.20.4 - mvm1
-10.0.20.5 - mvm2
-pub ip : 20.228.141.252
+10.0.20.7 - mvm2
+pub ip : 52.188.62.46
 
 
 - name: Run the equivalent of "apt-get update" as a separate step

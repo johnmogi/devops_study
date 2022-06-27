@@ -1,0 +1,43 @@
+---
+- hosts: PROD
+  become: true
+
+  tasks:
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt:
+        update_cache: yes
+        when: ansible_distribution == "Ubuntu"
+
+    - name: Install reqired packages
+      apt:
+        name: ['git', 'curl']
+        state: present
+
+    - name: Ansible shell module multiple commands
+      shell: "curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -"
+
+    - name: Installing nodejs
+      apt:
+        name: nodejs
+        state: latest
+
+    - name: Clone a github repository
+      ansible.builtin.git:
+        repo: "https://github.com/johnmogi/bootcamp-app.git"
+        dest: ~/var
+        clone: yes
+        update: no
+
+    # - name: Build dependencies
+    #   shell: 'npm i'
+    #   path: ~/var
+
+    # - name: pm2
+    #   npm:
+    #     name: pm2
+    #     global: yes
+
+    # - name: pm2 start
+    #   shell:
+    #     cmd: pm2 start npm -- run dev
+    #     chdir: ~/weightapp

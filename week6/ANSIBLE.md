@@ -1,7 +1,8 @@
 ## admin
 
-20.228.224.102 (ip)
-ssh -i /home/john/.sshid_rsa.pub adminuser@20.115.4.232
+20.102.65.54
+ssh -i ~/.ssh/id_rsa.pub adminuser@13.68.245.200
+ssh -i /home/john/.sshid_rsa.pub adminuser@13.68.245.200
 
 sudo su
 apt update -y ; apt install ansible -y ; apt upgrade -y
@@ -12,43 +13,46 @@ ssh -i id_rsa.pub adminuser@168.62.169.29 -->
 # exit root login!
 
 cd ~/.ssh
-ssh-keygen -t ed25519 -C "tower"
+ssh-keygen -t ed25519 -C "ansible"
 
-# double enter, etc. look into it.
+# no double enter, etc. look into it.
 
-10.0.20.4
+sudo nano inventory
+10.0.20.5
 10.0.20.6
 
 <!-- 10.0.20.9 -->
 
-ssh-copy-id -i adminuser@10.0.20.6
-ssh-copy-id -i adminuser@10.0.20.4
+ssh-copy-id -i ~/.ssh/ansible.pub 10.0.20.5
+
+
+sudo chmod 400 id_ed25519.pub
+
+<!-- ssh-copy-id -i adminuser@10.0.20.7
+ssh-copy-id -i adminuser@10.0.20.4 -->
 
 <!-- ssh-copy-id -i adminuser@10.0.20.9 -->
 
-ssh-copy-id -i ~/.ssh/id_ed25519.pub
+<!-- ssh-copy-id -i ~/.ssh/id_ed25519.pub -->
 
-# do this twice and rename new file into ansible
+<!-- # do this twice and rename new file into ansible -->
 
-ssh-copy-id -i ~/.ssh/ansible.pub 10.0.20.4
+<!-- ansible all --key-file ~/.ssh/id_ed25519.pub -i inventory -m ping -->
 
-ansible all --key-file ~/.ssh/id_ed25519.pub -i inventory -m ping
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
 
 ## slaves
 
 ssh 10.0.20.4
-ssh 10.0.20.6
-
-sudo su
-vim /etc/ssh/sshd_config
+ssh 10.0.20.7
 
 # PubkeyAuthentication no -> PubkeyAuthentication yes
 
-service ssh restart
-systemctl reload sshd
-systemctl status sshd
-exit;
+sudo vim /etc/ssh/sshd_config
+sudo service ssh restart
+sudo systemctl reload sshd
+
+<!-- systemctl status sshd -->
 
 ## MASTER
 
@@ -60,6 +64,7 @@ sudo vim /etc/ansible/hosts
 sudo echo '''
 [clients]
 10.0.20.4
+10.0.20.5
 10.0.20.6''' > inventory
 
 ansible all --key-file ~/.ssh/ansible -i inventory -m ping
@@ -70,6 +75,7 @@ sudo echo '''
 [defaults]
 inventory = inventory
 private_key_file = ~/.ssh/ansible''' > ansible.cfg
+
 <!-- ansible all -m ping
 ansible all --list-hosts
 
@@ -82,7 +88,7 @@ ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
 ansible all -m apt -a upgrade=dist --become --ask-become-pass
  -->
 
-ansible-playbook -i  
+ansible-playbook -i
 
 https://youtu.be/FPU9_KDTa8A?t=276
 
@@ -106,7 +112,6 @@ nano ~/.bashrc │
 source ~/.bashrc
 alias up="git add -A && git commit -m 'up' && git push"
 
-
       - name: Ansible shell module multiple commands
         shell: 'curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -'
       - name: Install reqired packages
@@ -114,4 +119,7 @@ alias up="git add -A && git commit -m 'up' && git push"
         with_item
           - nodejs
 
-ansible-playbook -i /home/adminuser/inventory  /home/adminuser/playbook.yml
+ansible-playbook -i /var/inventory /var/play.yml
+
+
+production-weight-apppostgrsql.postgres.database.azure.com

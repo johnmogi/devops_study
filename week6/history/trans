@@ -1,3 +1,40 @@
+    1  sudo su
+    2  cd ~/.ssh
+    3  ssh-keygen -t ed25519 -C "ansible"
+    4  sudo nano inventory
+    5  ssh-copy-id -i ~/.ssh/ansible.pub 10.0.20.5
+    6  ssh-copy-id -i ~/.ssh/ansible.pub 10.0.20.4
+    7  sudo vim /etc/ssh/sshd_config
+    8  ssh 10.0.20.4
+    9  ssh 10.0.20.5
+   10  ssh 10.0.20.4
+   11  cd /var/
+   12  ll
+   13  sudo echo '''
+   14  [clients]
+   15  10.0.20.4
+   16  10.0.20.7''' > inventory
+   17  sudo echo '''
+   18  [clients]
+   19  10.0.20.4
+   20  10.0.20.7''' > inventory
+   21  mkdir app
+   22  sudo su
+   23  ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+   24  nano inventory 
+   25  sudo nano inventory 
+   26  sudo nano hosts
+   27  exit
+   28  ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+   29  cd /var
+   30  ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+   31  history
+
+
+   
+
+
+
   38  sudo ssh-keygen -t ed25519 -C "ansible"
    39  ssh-copy-id -i ~/.ssh/id_ed25519.pub 10.0.20.4
    40  ssh-copy-id -i ~/.ssh/id_ed25519.pub 10.0.20.5
